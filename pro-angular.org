@@ -1,0 +1,186 @@
+
+
+* Angular Project
+
+** Creating new project
+   - angular CLI
+
+** Project Structure
+   
+*** List of folders
+
+    | File or Folder    | Description                     |
+    |-------------------+---------------------------------|
+    | e22               | - files for end to end testing  |
+    |                   | - default setup uses protractor |
+    |-------------------+---------------------------------|
+    | node_modules      | - contains npm packages         |
+    |-------------------+---------------------------------|
+    | src               | - app source files              |
+    |-------------------+---------------------------------|
+    | .editorconfig     | - configures text editor        |
+    |                   | - [[http://editorconfig.org][Learn More]]                    |
+    |-------------------+---------------------------------|
+    | angular.json      | - config for ng dev tools       |
+    |-------------------+---------------------------------|
+    | package.json      | - details for npm pkgs          |
+    |                   | - def cmds that run dev tools   |
+    |-------------------+---------------------------------|
+    | package-lock.json | - version info for all npm pkgs |
+    |-------------------+---------------------------------|
+    | tsconfig.json     | - config for TS compiler        |
+    |-------------------+---------------------------------|
+    | tslint.json       | - config for TS linter          |
+    |-------------------+---------------------------------|
+
+*** Source Code Folder
+
+    
+    | File or Folder     | Description                          |
+    |--------------------+--------------------------------------|
+    | app                | - app source code                    |
+    |--------------------+--------------------------------------|
+    | assets             | - static resources rqrd by the app   |
+    |--------------------+--------------------------------------|
+    | environments       | - config files for env settings      |
+    |--------------------+--------------------------------------|
+    | browserlist        | - setting to support css processing  |
+    |                    | for multiple browsers                |
+    |--------------------+--------------------------------------|
+    | favicon.ico        | - application icon to display in Tab |
+    |--------------------+--------------------------------------|
+    | index.html         | -                                    |
+    |--------------------+--------------------------------------|
+    | karma.config.js    | - config for karma testing tool      |
+    |--------------------+--------------------------------------|
+    | main.ts            | - contains code to start the app     |
+    |--------------------+--------------------------------------|
+    | polyfills.ts       | - to include polyfills in project    |
+    |                    | - to support features not supported  |
+    |                    | in other browsers                    |
+    |--------------------+--------------------------------------|
+    | styles.css         | - global stylesheet for application  |
+    |--------------------+--------------------------------------|
+    | tests.ts           | - config for karma test pkg          |
+    |--------------------+--------------------------------------|
+    | tsconfig.app.json  | - config for TSC for dev             |
+    |--------------------+--------------------------------------|
+    | tsconfig.spec.json | - config for TSC for testing         |
+    |--------------------+--------------------------------------|
+
+
+*** Package folder
+    - package.json :: initial set of packages are defined here
+    - [[./package-version-format.png][version-format]] 
+
+**** Sections in package json file
+     - dependencies :: pkgs reqrd by app
+     - devDependencies :: pkgs rqrd ony for dev
+     - script :: cmds defined by pkgs to be called by npm
+
+** Using dev tools
+
+*** Webpack:: module bundler
+**** TODO Read mode about web packs
+
+*** Development HTTP server
+    - webpack-dev-server package
+    - default port 4200
+
+*** Hot Model Replacement
+    - automatically detectes changes in files
+    - updated file is compiled and sent to browser
+
+*** Linter
+    - tool that inspects code to follow coding conventions
+    - [[https://github.com/palantir/tslint][Learn More: Github]]
+
+**** Disable Lint
+     - // tslint:disable-next-line :: for individual lines
+     - /* tslint:disable */ :: for file
+
+** How Angular application works
+
+*** index.html
+    - first document that is read by the browser
+    - it contains reference to all the bundle scripts
+    - contains root html structure
+    - contains root-app component
+
+*** Application bootstrap
+    - browser executes js file in the order of reference
+
+**** runtime.js
+     - execution starts with runtime.js
+     - it contains angular framework code
+
+**** main.js
+     - contains the code to start the application
+     - it checks for the enviroment mode
+     - initializes the application to run in web browser
+
+*** Root Angular Module
+    
+****  Module :: refers to two terms
+      - Javascript :: used to track dependencies
+      - Angular :: configures part of app (NgModules)
+
+**** Root Module :: default AppModule (app.module.ts)
+     - decorated by */@NgModule/*
+     - contains property called */bootstrap/* which defines the staring component
+     - tells angular to load app component as part of startup
+
+*** Angular Component
+    - decorated by */@Component/* decorator
+    - selector :: defines html selector name
+    - templateUrl :: path to html template file
+    - styleUrls :: path stylesheet for component
+
+* Data Bindings
+
+   - Expressions in html template that evaluate to produce dynamic value.
+   - complex expression may introduce bugs
+
+** One way data binding
+   - data flows from component to html
+
+   * Example: [ngClass] = "getClases()"
+     - it ha four parts:
+       - host element :: html element that the binding will effect
+       - square brackets :: tells ng that it is one way binding exp, [] implies that exp needs to be evaluated
+       - ngClass :: target | can be a directive or property binding
+       - getClasses() :: javascript expression
+
+   - [[file:attachments/built-in-directives.png][Angular Directives]]
+
+*** Property Bindings
+
+* Directives
+
+** Structural directives
+   - '*' symbol is used
+   - responsible for HTML layout
+   - these rely on a part of template (/micro template/)
+   - angular wraps this micro templates with ng-template tag
+
+*** built-in structural directives
+   
+**** ngIf :: used to include a fragment of HTML in the document if the expression evaluated to true
+     - it adds and removes the elements from the DOM
+     - to hide and show the element use property (/hidden property/) binding 
+
+**** ngSwitch :: selects one of the several elements based on the expression result
+
+**** ngFor :: repeats a section of content of each array
+     - contains local template variables
+       - index
+       - odd
+       - even
+       - first
+       - last
+     - updating an array used by ngFor can be expensive (/use trackBy property/)
+
+**** ngTemplateOutlet :: used to repeat a block of content
+     - ngTemplateOutletContext :: to pass input value to the template
+
+     
